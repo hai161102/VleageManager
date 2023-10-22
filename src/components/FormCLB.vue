@@ -1,0 +1,121 @@
+<template>
+    <div class="view-form">
+        <h2>Thêm mới câu lạc bộ</h2>
+        <form @submit.prevent = "addData">
+            <div class="mb-4">
+                <label for="maso">Mã số: </label>
+                <input type="text" id="maso" v-model="caulacbo.maso" :class="{ 'border-red-500': !caulacbo.maso && addData }" required/>
+                <!-- <div v-if="!maso" class="text-red-500">Mã số không được để trống.</div> -->
+            </div>
+            <div class="mb-4">
+                <label for="ten">Tên câu lạc bộ: </label>
+                <input type="text" id="ten" v-model="caulacbo.ten" :class="{ 'border-red-500': !caulacbo.ten && addData }" required/>
+                <!-- <div v-if="!maso" class="text-red-500">Mã số không được để trống.</div> -->
+            </div>
+            <div class="mb-4">
+                <label for="truso">Trụ sở: </label>
+                <input type="text" id="truso" v-model="caulacbo.truso" :class="{ 'border-red-500': !caulacbo.truso && addData }" required/>
+                <!-- <div v-if="!ngay_dau" class="text-red-500">Ngày đấu không được để trống.</div> -->
+            </div>
+            
+            <div class="mb-4">
+                <label for="sannha">Sân nhà: </label>
+                <input type="text" id="sannha" v-model="caulacbo.sannha" :class="{ 'border-red-500': !caulacbo.sannha && addData }" required/>
+                <!-- <div v-if="!dia_diem" class="text-red-500">Địa điểm không được để trống.</div> -->
+            </div>
+            <button type="submit">
+                Thêm
+            </button>
+        </form>
+        <button style="width: 20%; margin-top: 12px; border: none; border-radius: 4px; background-color: gray;" v-on:click="thoat">Thoát</button>
+    </div>
+</template>
+<script lang="ts">
+import CauLacBo from './CauLacBo.vue';
+
+export default {
+    data() {
+        return {
+            caulacbo : {
+                maso : '',
+                ten : '',
+                truso : '',
+                sannha : '',
+            }
+        }
+    },
+    methods : {
+        addData() {
+            let clb : CauLacBo = new CauLacBo(
+                this.caulacbo.maso,
+                this.caulacbo.ten,
+                this.caulacbo.truso,
+                this.caulacbo.sannha
+            );
+            this.$emit('onAddCLB', clb);
+        },
+        thoat() {
+            this.$emit('onAddCLB', null);
+        }
+    },
+
+}
+</script>
+
+<style scoped>
+
+.view-form {
+    color: black;
+    width: 90%;
+    font-size: 24px;
+    font-family: 'Times New Roman';
+    padding: 5% 5% 5% 5%;
+    margin: 5% 5% 5% 5%;
+    border: 1px solid gray;
+    border-radius: 8px;
+    margin-top: 24px;
+    background-color: white;
+}
+h2 {
+    width: 100%;
+    text-align: center;
+}
+form {
+    width: 100%;
+    margin-top: 24px;
+}
+.mb-4 {
+    display: flex;
+    flex-direction: row;
+}
+label {
+    flex: 1;
+}
+input {
+    flex: 2;
+    width: 50%;
+    right: 2px;
+    height: 100%;
+    font-size: 20px;
+    border-radius: 4px;
+    border: 0.5px solid gray;
+    padding: 4px;
+    font-family: 'Times New Roman';
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    width: 20%;
+    height: auto;
+    font-size: 20px;
+    background-color: chartreuse;
+    border-radius: 4px;
+    border: none;
+    padding: 8px;
+    margin-top: 12px;
+    font-family: 'Times New Roman';
+}
+</style>
